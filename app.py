@@ -18,36 +18,37 @@ def play():
     while True:
         print_menu()
         choice = input("Choose option: ")
+        match choice:
+            case "1":
+                print(db.connection.connect_to_db())
+                continue
 
-        if choice == "1":
-            print(db.connection.connect_to_db())
-            continue
+            case "2":
+                db.queries.search_by_institution()
+                continue
 
-        if choice == "2":
-            db.queries.search_by_institution()
-            continue
+            case "3":
+                db.queries.search_by_course()
+                continue
 
-        if choice == "3":
-            db.queries.search_by_course()
-            continue
+            case '4':
+                db.queries.search_min_course()
+                continue
 
-        if choice == '4':
-            db.queries.search_min_course()
-            continue
+            case '5':
+                db.queries.search_max_course()
+                continue
 
-        if choice == '5':
-            db.queries.search_max_course()
-            continue
+            case '6':
+                db.queries.course_count()
+                continue
+            case '7':
+                db.queries.queries()
+                continue
 
-        if choice == '6':
-            db.queries.course_count()
-            continue
-        if choice == '7':
-            db.queries.queries()
-            continue
-
-        if choice == '8':
-            break
+            case '8':
+                break
 
 
-play()
+if __name__ == "__main__":
+    play()

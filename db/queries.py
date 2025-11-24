@@ -66,42 +66,14 @@ def course_count():
 
 def queries():
     request = input('enter the request')
-    validate = request.startswith("SELECT")
-    if validate:
-        if  'SELECT * FROM courses WHERE institution LIKE ' in request:
-            return search_by_institution()
-
-        if 'SELECT * FROM courses WHERE course LIKE 'in request :
-            return search_by_course()
-
-        if request == """SELECT course, COUNT(*) AS num
-                    FROM courses
-                    GROUP BY course
-                    ORDER BY num DESC
-                    LIMIT 1;""":
-            return search_max_course()
-
-        if request == """SELECT course, COUNT(*) AS num
-                    FROM courses
-                    GROUP BY course
-                    ORDER BY num ASC
-                    LIMIT 1;""":
-            return search_min_course()
-
-        if request == """SELECT course, COUNT(*) AS num
-                    FROM courses
-                    GROUP BY course
-                    ORDER BY num DESC
-                    LIMIT 5;""":
-            return search_top5_course()
-
-        if request == """SELECT course, COUNT(*) AS num_courses
-                    FROM courses
-                    GROUP BY course
-                    ORDER BY num_courses DESC
-                    LIMIT 5;""":
-           return course_count()
+    validate = request.upper().startswith("SELECT")
+    if not validate:
+        print('not good command')
         return None
-
     else:
-        return "nothing to do"
+        try:
+            cursor.execute(request)
+            print(cursor.fetchall())
+        except:
+            print('not good command')
+            return None
